@@ -1,0 +1,185 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{graphicx,textcomp}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage[reqno]{amsmath}
+\usepackage{amsthm}
+\usepackage{fancyvrb}
+\usepackage{amssymb,enumerate}
+\usepackage[all]{xy}
+\usepackage{endnotes}
+\usepackage{lscape}
+\newtheorem{com}{Comment}
+\usepackage{float}
+\usepackage{hyperref}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+\usepackage[compact]{titlesec}
+\usepackage{dcolumn}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{multirow}
+\usepackage{xcolor}
+\newcolumntype{.}{D{.}{.}{-1}}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+\definecolor{light-gray}{gray}{0.65}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
+\newcommand{\Sref}[1]{Section~\ref{#1}}
+\newtheorem{hyp}{Hypothesis}
+
+\title{Problem Set 1}
+\date{Due: October 3, 2022}
+\author{Daniel Murray (13303981)}
+
+\begin{document}
+	\maketitle
+	
+	\section*{Question 1 (50 points): Education}
+
+A school counsellor was curious about the average of IQ of the students in her school and took a random sample of 25 students' IQ scores. The following is the data set:\\
+\vspace{.25cm}
+
+\lstinputlisting[language=R, firstline=81, lastline=82]{PS01.R}  
+
+\vspace{.5cm}
+
+\noindent \textbf{Part (1)}\\
+
+We are interested in finding a 90\% confidence interval for the average student IQ in the school. An inspection of the data revealed that it is approximately normally distributed, as shown in the table below.\\
+
+	\begin{figure}[H]\centering
+	\caption{\footnotesize Density plot of student IQ sample}
+	\includegraphics[width=.75\textwidth]{Rplot_density.png}
+\end{figure} 
+
+Following this inspection the mean, standard deviation, and standard error of the sample data was calculated.\\
+
+A t-distribution was then used to construct a 90\% confidence interval for the average IQ of the population of all students in the school, as the sample size is relatively small and the exact standard error of the population is unknown. The sample standard deviation was substituted for the population standard deviation to calculate the estimated standard error, which introduces extra error and necessitates replacing the z-score with a t-score.\\
+
+Assuming that the sampling distribution of the sample mean is approximately normal, a t-score was calculated for a 90\% confidence interval with df = 24 using the following code:
+
+\vspace{.5cm}
+
+\lstinputlisting[language=R, firstline=118, lastline=118]{PS01.R}  
+
+\vspace{.5cm}
+
+From this t-score, the margin of error was calculated. A confidence interval was constructed by adding and subtracting the margin of error value from our point estimate, the sample mean.\\
+
+The average student IQ in the school was found to be 98.4, 90\% CI [94.0, 102.9].\\ 
+
+\noindent \textbf{Part (2)}\\
+
+We are also interested in investigating whether the average student IQ in the school is higher than the average IQ score (100) among all schools in the country.\\
+	
+The sample data from Part 1 was used to represent the average student IQ in the school. This data was obtained through random sampling, and is normally distributed as determined above.\\
+
+A hypothesis test with $\alpha=0.05$ was conducted as per below:
+
+\[ H_0 : \mu = \bar y\]
+\[ H_a : \mu < \bar y\]
+
+The value for the test statistic (t-score) was calculated as -0.59. As we are testing the probability that the average IQ of students in our sample is higher than the average IQ score, we find the right-tailed P-score for our test statistic with degrees of freedom df = 24. The below code was used, yielding a P-value of 0.72.
+
+\vspace{.5cm}
+
+\lstinputlisting[language=R, firstline=146, lastline=146]{PS01.R}  
+
+\vspace{.5cm}
+
+The P-value of P = 0.72 is not below our threshold of 0.05, therefore we do not reject the null hypothesis that the average IQ of students in our sample is equal to the average IQ score among all schools in the country. 
+
+\newpage
+
+	\section*{Question 2 (50 points): Political Economy}
+
+\noindent Researchers are curious about what affects the amount of money communities spend on addressing homelessness. The following variables constitute our data set about social welfare expenditures in the USA. \\
+\vspace{.5cm}
+
+
+\begin{tabular}{r|l}
+	\texttt{State} &\emph{50 states in US} \\
+	\texttt{Y} & \emph{per capita expenditure on shelters/housing assistance in state}\\
+	\texttt{X1} &\emph{per capita personal income in state} \\
+	\texttt{X2} &  \emph{Number of residents per 100,000 that are "financially insecure" in state}\\
+	\texttt{X3} &  \emph{Number of people per thousand residing in urban areas in state} \\
+	\texttt{Region} &  \emph{1=Northeast, 2= North Central, 3= South, 4=West} \\
+\end{tabular}
+
+\vspace{1cm}
+
+\noindent \textbf{Part (1)}\\
+
+Below is a multiple scatter plot illustrating the relationships among \emph{Y}, \emph{X1}, \emph{X2}, and \emph{X3}. The graphs show that all variables have a positive, broadly linear relationship, with the strongest correlations appearing to be between \emph{X1} and \emph{X3}, and \emph{Y} and \emph{X1}.\\
+
+\begin{figure}[H]\centering
+	\caption{\footnotesize Multiple scatter plot of relationships among Y, X1, X2 and X3}
+	\includegraphics[width=.75\textwidth]{Rplot_multiple_scatterplot.png}
+\end{figure} 
+
+The same relationships can also be illustrated using a correlogram, as below. This shows that \emph{X1}/\emph{X3} and \emph{Y}/\emph{X1} are indeed the variable pairs with the strongest correlations. It also shows that while there is correlation between \emph{X1}/\emph{X2} and \emph{X2}/\emph{X3}, these relationships are not statistically significant at a 95\% confidence level.\\
+
+\begin{figure}[H]\centering
+	\caption{\footnotesize Correlogram of relationships among Y, X1, X2 and X3}
+	\includegraphics[width=.75\textwidth]{Rplot_correlogram.png}
+\end{figure} 
+
+\noindent \textbf{Part (2)}\\
+
+Below is a boxplot illustrating the relationship between \emph{Y} and \emph{Region}. It shows that, on average, the West is the region the highest per capita expenditure on housing assistance.\\
+
+\begin{figure}[H]\centering
+	\caption{\footnotesize Boxplot of relationship between Y and Region}
+	\includegraphics[width=.75\textwidth]{Rplot_boxplot.png}
+\end{figure} 
+
+\noindent \textbf{Part (3)}\\
+
+Below is a scatter plot illustrating the relationship between \emph{Y} and \emph{X1}. It indicates that these two variables have a positive, linear relationship of moderate strength, with the presence of several apparent outliers.
+
+\begin{figure}[H]\centering
+	\caption{\footnotesize Boxplot of relationship between Y and X1}
+	\includegraphics[width=.75\textwidth]{Rplot_scatterplot.png}
+\end{figure} 
+
+Below is the same graph as Figure 5 above, modified to include one more variable \emph{Region}.
+
+\begin{figure}[H]\centering
+	\caption{\footnotesize Boxplot of relationship between Y, X1 and Region}
+	\includegraphics[width=.75\textwidth]{Rplot_scatterplot2.png}
+\end{figure} 
+
+\end{document}

@@ -38,10 +38,6 @@ library("corrplot")
 library("Hmisc")
 library("ggplot2")
 
-# set working directory
-setwd("~/Documents/GitHub/QTM200Spring2021/problem_sets/PS1")
-
-
 #####################
 # Problem 1
 #####################
@@ -212,3 +208,4 @@ scatterplot2 <- ggplot(expenditure, aes(x=Y, y=X1, shape=Region,
 scatterplot2
 
      
+expenditure <- read.table("https://raw.githubusercontent.com/ASDS-TCD/StatsI_Fall2022/main/datasets/expenditure.txt", header=T)

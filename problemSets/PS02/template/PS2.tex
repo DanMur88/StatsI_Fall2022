@@ -97,10 +97,33 @@
 	
 	\item [(a)]
 	Calculate the $\chi^2$ test statistic by hand/manually (even better if you can do "by hand" in \texttt{R}).\\
-	\vspace{7cm}
+	
+	\textbf{Answer:}
+	
+	The $\chi^2$ test statistic was calculated manually in \texttt{R}, using the code below. The value for the $\chi^2$ test statistic was found to be 3.79.
+	
+	\vspace{.5cm}
+	
+	\lstinputlisting[language=R, firstline=7, lastline=47]{PS02.R}  
+	
+	\vspace{.5cm}
 	
 	\item [(b)]
 	Now calculate the p-value from the test statistic you just created (in \texttt{R}).\footnote{Remember frequency should be $>$ 5 for all cells, but let's calculate the p-value here anyway.}  What do you conclude if $\alpha = 0.1$?\\
+	
+	\textbf{Answer:}
+	
+	The degrees of freedom is first calculated by multiplying the number of rows minus one by the number of columns minus one, and is found to equal 2. The P-value is then calculated using the \texttt{pchisq} function. Its value is found to be approximately 0.15.
+	
+	The code below illustrates this process:
+	
+	\vspace{.5cm}
+	
+	\lstinputlisting[language=R, firstline=51, lastline=57]{PS02.R}  
+	
+	\vspace{.5cm}
+	
+	As our p-value ($\approx 0.15$) is higher than our $\alpha = 0.1$ threshold, we do not find sufficient evidence to reject the null hypothesis that there is no relationship between a driver's class and the likelihood of an officer soliciting a bribe after committing a minor traffic offence.
 	
 	\newpage
 	\item [(c)] Calculate the standardized residuals for each cell and put them in the table below.
@@ -112,15 +135,23 @@
 			& Not Stopped & Bribe requested & Stopped/given warning \\
 			\\[-1.8ex] 
 			\hline \\[-1.8ex]
-			Upper class  &  &  &  \\
+			Upper class  & 0.32 & -1.64 & 1.52 \\
 			\\
-			Lower class &  &   &   \\
+			Lower class & -0.32 & 1.64  & -1.52  \\
 			
 		\end{tabular}
 	\end{table}
+
+	\vspace{.5cm}
+
+	The code below was used to calculate the standardised residuals in \texttt{R}:
 	
+	\vspace{.5cm}
+		
+	\lstinputlisting[language=R, firstline=63, lastline=75]{PS02.R}  
 	
-	\vspace{7cm}
+	\vspace{.5cm}
+		
 	\item [(d)] How might the standardized residuals help you interpret the results?  
 	
 \end{enumerate}
@@ -136,7 +167,7 @@ Chattopadhyay and Duflo were interested in whether women promote different polic
 	\vspace{.5cm}
 	\centering
 	\label{fig:women_desc}
-	\includegraphics[width=1.1\textwidth]{../../../../graphics/women_desc.png}
+	
 \end{figure}		
 
 \newpage

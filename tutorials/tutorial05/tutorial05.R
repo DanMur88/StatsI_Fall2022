@@ -6,6 +6,8 @@
 library(tidyverse) # Load our packages here
 library(broom) # If not installed - function for installing?
 
+install.packages("broom")
+
 ?tidyverse
 browseVignettes(package = "tidyverse")
 
@@ -17,6 +19,17 @@ browseVignettes(package = "tidyverse")
 # we can read in a csv file using the read_csv() function, which is 
 # similar to base R's read.csv() function.
 dat <- read.csv("movies.csv")
+tidydat <- read_csv("movies.csv")
+
+typeof(dat)
+typeof(tidydat)
+class(dat)
+class(tidydat)
+str(dat)
+str(tidydat)
+
+dat
+tidydat
 
 ##########
 # Exercise
@@ -76,10 +89,16 @@ dat %>%
 # column. Which is the most popular month for Horror films to be 
 # released?
 
+dat %>%
+  filter(best_actor_win == "yes") %>%
+  select(actor1) %>% # select one column
+  group_by(actor1) %>%
+  summarise(n = n()) %>% # perform a summary operation (count the n per month)
+  arrange(desc(n)) # sort in descending order
 
 # 2. Using the dplyr commands you have learned, find the actor 
 # (actor1) with the most award wins. 
-
+?mutate()
 
 #######################
 # Complex operations...
@@ -97,7 +116,7 @@ dat %>%
   mutate(month = month.abb[thtr_rel_month]) %>% 
   group_by(month) %>% 
   summarise(n = n()) %>%
-  mutate(prop_month = round(n / sum(n), 2)) %>% # mutate after our summarise to find the proportion
+  mutate(prop_month = round(n / sum(n), )) %>% # mutate after our summarise to find the proportion
   arrange(desc(prop_month))
 
 ##########
@@ -107,6 +126,13 @@ dat %>%
 # Using the code above as a template, perform the same operation on 
 # a subset of horror films
 
+dat %>%  
+  filter(genre == "Horror") %>%
+  mutate(month = month.abb[thtr_rel_month]) %>% 
+  group_by(month) %>% 
+  summarise(n = n()) %>%
+  mutate(prop_month = round(n / sum(n), 3)) %>% # mutate after our summarise to find the proportion
+  arrange(desc(prop_month))
 
 #############
 # Visualising
@@ -131,7 +157,7 @@ dat %>%
   mutate(All = round(`FALSE` / sum(`FALSE`), 2), # calculate proportions for all films
          Horror = `TRUE` / sum(`TRUE`, na.rm = TRUE)) %>% # calculate proportions for horror films
   select(thtr_rel_month, All, Horror) %>% # drop all other columns
-  pivot_longer(cols = c("All", "Horror"), names_to = "film_type") %>% # change the shape again!
+  pivot_longer(cols = c("All", "Horror"), names_to = "film_type") #%>% # change the shape again!
   mutate(month = factor(month.abb[thtr_rel_month], levels = month.abb)) %>% # create a factor for months
   ggplot(aes(month, value)) + # plot the data
   geom_col(aes(fill = film_type), position = "dodge") +
@@ -154,4 +180,3 @@ dat %>%
 # Are feature films getting longer? Use the dplyr functions you've 
 # learned about today to find out whether the average running time 
 # of feature films has increased in recent years.
-

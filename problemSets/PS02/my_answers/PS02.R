@@ -56,8 +56,6 @@ df
 p_value <- pchisq(chi_sqrd, df, lower.tail = FALSE)
 p_value
 
-# We do not find sufficient evidence to reject the null hypothesis.
-
 ### Part (c) ###
 
 # Calculate the standardised residuals for each cell
@@ -78,11 +76,6 @@ sr_lowerstopped <- (o_lowerstopped - e_lowerstopped) /
 #####################
 # Question 2
 #####################
-
-### Part (a) ###
-
-# H0: B = 0
-# Ha: B != 0
 
 ### Part (b) ###
 

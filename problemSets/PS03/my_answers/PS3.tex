@@ -1,0 +1,500 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{graphicx,textcomp}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage[reqno]{amsmath}
+\usepackage{amsthm}
+\usepackage{fancyvrb}
+\usepackage{amssymb,enumerate}
+\usepackage[all]{xy}
+\usepackage{endnotes}
+\usepackage{lscape}
+\newtheorem{com}{Comment}
+\usepackage{float}
+\usepackage{hyperref}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+\usepackage[compact]{titlesec}
+\usepackage{dcolumn}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{multirow}
+\usepackage{xcolor}
+\newcolumntype{.}{D{.}{.}{-1}}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+\definecolor{light-gray}{gray}{0.65}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
+\newcommand{\Sref}[1]{Section~\ref{#1}}
+\newtheorem{hyp}{Hypothesis}
+
+\title{Problem Set 3}
+\date{Due: November 20, 2022}
+\author{Daniel Murray (13303981)}
+
+
+\begin{document}
+	\maketitle
+	\section*{Instructions}
+	\begin{itemize}
+		\item Please show your work! You may lose points by simply writing in the answer. If the problem requires you to execute commands in \texttt{R}, please include the code you used to get your answers. Please also include the \texttt{.R} file that contains your code. If you are not sure if work needs to be shown for a particular problem, please ask.
+	\item Your homework should be submitted electronically on GitHub.
+	\item This problem set is due before 23:59 on Sunday November 20, 2022. No late assignments will be accepted.
+	\item Total available points for this homework is 80.
+	\end{itemize}
+
+		\vspace{.25cm}
+	
+\noindent In this problem set, you will run several regressions and create an add variable plot (see the lecture slides) in \texttt{R} using the \texttt{incumbents\_subset.csv} dataset. Include all of your code.
+
+	\vspace{.5cm}
+\section*{Question 1}
+\vspace{.25cm}
+\noindent We are interested in knowing how the difference in campaign spending between incumbent and challenger affects the incumbent's vote share. 
+	\begin{enumerate}
+		\item Run a regression where the outcome variable is \texttt{voteshare} and the explanatory variable is \texttt{difflog}.\\
+		
+		\textbf{Answer:}\\
+		
+		A regression was run and summary statistics produced using the below code:
+		
+		\vspace{.5cm}
+		
+		\lstinputlisting[language=R, firstline=12, lastline=16]{PS03.R}  
+		
+		\vspace{.5cm}
+		
+		This produced the following output of summary statistics:
+		
+		\vspace{.5cm}
+		
+		% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+		% Date and time: Thu, Nov 10, 2022 - 16:05:59
+		\begin{table}[!htbp] \centering 
+			\caption{Summary Statistics of Regression Model} 
+			\label{} 
+			\begin{tabular}{@{\extracolsep{5pt}}lc} 
+				\\[-1.8ex]\hline 
+				\hline \\[-1.8ex] 
+				& \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+				\cline{2-2} 
+				\\[-1.8ex] & voteshare \\ 
+				\hline \\[-1.8ex] 
+				difflog & 0.042$^{***}$ \\ 
+				& (0.001) \\ 
+				& \\ 
+				Constant & 0.579$^{***}$ \\ 
+				& (0.002) \\ 
+				& \\ 
+				\hline \\[-1.8ex] 
+				Observations & 3,193 \\ 
+				R$^{2}$ & 0.367 \\ 
+				Adjusted R$^{2}$ & 0.367 \\ 
+				Residual Std. Error & 0.079 (df = 3191) \\ 
+				F Statistic & 1,852.791$^{***}$ (df = 1; 3191) \\ 
+				\hline 
+				\hline \\[-1.8ex] 
+				\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+			\end{tabular} 
+		\end{table} 
+		
+		\vspace{.5cm}
+		
+		\item Make a scatterplot of the two variables and add the regression line.\\
+		
+		\textbf{Answer:}\\
+		
+		A scatterplot was produced using the below code:
+		
+		\vspace{.5cm}
+		
+		\lstinputlisting[language=R, firstline=20, lastline=25]{PS03.R}  
+		
+		\vspace{.5cm}
+		
+		This produced the following scatterplot:
+		
+		\begin{figure}[H]\centering
+			\caption{\footnotesize}
+			\includegraphics[width=.75\textwidth]{Scatterplot voteshare ~ difflog.png}
+		\end{figure} 
+		
+		\item Save the residuals of the model in a separate object.\\
+		
+		\textbf{Answer:}\\
+		
+		The residuals of the model were saved in a separate object using the below code:
+		
+		\vspace{.5cm}
+		
+		\lstinputlisting[language=R, firstline=29, lastline=30]{PS03.R}  
+		
+		\vspace{.5cm}
+		
+		\item Write the prediction equation.\\
+		
+		\textbf{Answer:}
+		
+		\[\hat{y} = \hat{\beta_0} + \hat{\beta_1}x_1 \]
+		\[voteshare = 0.579 + 0.042\times difflog \]
+		
+	\end{enumerate}
+	
+\newpage
+
+\section*{Question 2}
+\noindent We are interested in knowing how the difference between incumbent and challenger's spending and the vote share of the presidential candidate of the incumbent's party are related.	\vspace{.25cm}
+	\begin{enumerate}
+		\item Run a regression where the outcome variable is \texttt{presvote} and the explanatory variable is \texttt{difflog}.\\
+		
+		\textbf{Answer:}\\
+		
+		A regression was run and summary statistics produced using the below code:
+		
+		\vspace{.5cm}
+		
+		\lstinputlisting[language=R, firstline=36, lastline=40]{PS03.R}  
+		
+		\vspace{.5cm}
+		
+		This produced the following output of summary statistics:
+		
+		\vspace{.5cm}
+		
+		% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+		% Date and time: Thu, Nov 10, 2022 - 16:38:57
+		\begin{table}[!htbp] \centering 
+			\caption{Summary Statistics of Regression Model} 
+			\label{} 
+			\begin{tabular}{@{\extracolsep{5pt}}lc} 
+				\\[-1.8ex]\hline 
+				\hline \\[-1.8ex] 
+				& \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+				\cline{2-2} 
+				\\[-1.8ex] & presvote \\ 
+				\hline \\[-1.8ex] 
+				difflog & 0.024$^{***}$ \\ 
+				& (0.001) \\ 
+				& \\ 
+				Constant & 0.508$^{***}$ \\ 
+				& (0.003) \\ 
+				& \\ 
+				\hline \\[-1.8ex] 
+				Observations & 3,193 \\ 
+				R$^{2}$ & 0.088 \\ 
+				Adjusted R$^{2}$ & 0.088 \\ 
+				Residual Std. Error & 0.110 (df = 3191) \\ 
+				F Statistic & 307.715$^{***}$ (df = 1; 3191) \\ 
+				\hline 
+				\hline \\[-1.8ex] 
+				\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+			\end{tabular} 
+		\end{table}
+		
+		\item Make a scatterplot of the two variables and add the regression line.\\
+		
+		\textbf{Answer:}\\
+		
+		A scatterplot was produced using the below code:
+		
+		\vspace{.5cm}
+		
+		\lstinputlisting[language=R, firstline=44, lastline=49]{PS03.R}  
+		
+		\vspace{.5cm}
+		
+		This produced the following scatterplot:
+		
+		\begin{figure}[H]\centering
+			\caption{\footnotesize}
+			\includegraphics[width=.75\textwidth]{Scatterplot presvote ~ difflog.png}
+		\end{figure} 
+		
+		\item Save the residuals of the model in a separate object.\\
+		
+		\textbf{Answer:}\\
+		
+		The residuals of the model were saved in a separate object using the below code:
+		
+		\vspace{.5cm}
+		
+		\lstinputlisting[language=R, firstline=53, lastline=54]{PS03.R}  
+		
+		\vspace{.5cm}
+		
+		\item Write the prediction equation.\\
+		
+		\textbf{Answer:}
+		
+			\[\hat{y} = \hat{\beta_0} + \hat{\beta_1}x_1 \]
+			\[presvote = 0.508 + 0.024\times difflog \]
+		
+	\end{enumerate}
+	
+	\newpage	
+\section*{Question 3}
+
+\noindent We are interested in knowing how the vote share of the presidential candidate of the incumbent's party is associated with the incumbent's electoral success.
+	\vspace{.25cm}
+	\begin{enumerate}
+		\item Run a regression where the outcome variable is \texttt{voteshare} and the explanatory variable is \texttt{presvote}.\\
+		
+		\textbf{Answer:}\\
+		
+		A regression was run and summary statistics produced using the below code:
+		
+		\vspace{.5cm}
+		
+		\lstinputlisting[language=R, firstline=60, lastline=65]{PS03.R}  
+		
+		\vspace{.5cm}
+		
+		This produced the following output of summary statistics:
+		
+		\vspace{.5cm}
+		
+		% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+		% Date and time: Thu, Nov 10, 2022 - 21:22:51
+		\begin{table}[!htbp] \centering 
+			\caption{Summary Statistics of Regression Model} 
+			\label{} 
+			\begin{tabular}{@{\extracolsep{5pt}}lc} 
+				\\[-1.8ex]\hline 
+				\hline \\[-1.8ex] 
+				& \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+				\cline{2-2} 
+				\\[-1.8ex] & voteshare \\ 
+				\hline \\[-1.8ex] 
+				presvote & 0.388$^{***}$ \\ 
+				& (0.013) \\ 
+				& \\ 
+				Constant & 0.441$^{***}$ \\ 
+				& (0.008) \\ 
+				& \\ 
+				\hline \\[-1.8ex] 
+				Observations & 3,193 \\ 
+				R$^{2}$ & 0.206 \\ 
+				Adjusted R$^{2}$ & 0.206 \\ 
+				Residual Std. Error & 0.088 (df = 3191) \\ 
+				F Statistic & 826.950$^{***}$ (df = 1; 3191) \\ 
+				\hline 
+				\hline \\[-1.8ex] 
+				\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+			\end{tabular} 
+		\end{table} 
+		
+		\item Make a scatterplot of the two variables and add the regression line.\\
+		
+		\textbf{Answer:}\\
+		
+		A scatterplot was produced using the below code:
+		
+		\vspace{.5cm}
+		
+		\lstinputlisting[language=R, firstline=69, lastline=74]{PS03.R}  
+		
+		\vspace{.5cm}
+		
+		This produced the following scatterplot:
+		
+		\begin{figure}[H]\centering
+			\caption{\footnotesize}
+			\includegraphics[width=.75\textwidth]{Scatterplot voteshare ~ presvote.png}
+		\end{figure} 
+		
+		\item Write the prediction equation.\\
+		
+		\textbf{Answer:}
+		
+		\[\hat{y} = \hat{\beta_0} + \hat{\beta_1}x_1 \]
+		\[voteshare = 0.441 + 0.388\times presvote \]
+		
+	\end{enumerate}
+	
+
+\newpage	
+\section*{Question 4}
+\noindent The residuals from part (a) tell us how much of the variation in \texttt{voteshare} is $not$ explained by the difference in spending between incumbent and challenger. The residuals in part (b) tell us how much of the variation in \texttt{presvote} is $not$ explained by the difference in spending between incumbent and challenger in the district.
+	\begin{enumerate}
+		\item Run a regression where the outcome variable is the residuals from Question 1 and the explanatory variable is the residuals from Question 2.\\
+		
+		\textbf{Answer:}\\
+		
+		A regression was run and summary statistics produced using the below code:
+		
+		\vspace{.5cm}
+		
+		\lstinputlisting[language=R, firstline=80, lastline=85]{PS03.R}  
+		
+		\vspace{.5cm}
+		
+		This produced the following output of summary statistics:
+		
+		\vspace{.5cm}
+		
+		% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+		% Date and time: Thu, Nov 10, 2022 - 21:30:18
+		\begin{table}[H] \centering 
+			\caption{Summary Statistics of Regression Model} 
+			\label{} 
+			\begin{tabular}{@{\extracolsep{5pt}}lc} 
+				\\[-1.8ex]\hline 
+				\hline \\[-1.8ex] 
+				& \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+				\cline{2-2} 
+				\\[-1.8ex] & mod1\_res \\ 
+				\hline \\[-1.8ex] 
+				mod2\_res & 0.257$^{***}$ \\ 
+				& (0.012) \\ 
+				& \\ 
+				Constant & $-$0.000 \\ 
+				& (0.001) \\ 
+				& \\ 
+				\hline \\[-1.8ex] 
+				Observations & 3,193 \\ 
+				R$^{2}$ & 0.130 \\ 
+				Adjusted R$^{2}$ & 0.130 \\ 
+				Residual Std. Error & 0.073 (df = 3191) \\ 
+				F Statistic & 476.975$^{***}$ (df = 1; 3191) \\ 
+				\hline 
+				\hline \\[-1.8ex] 
+				\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+			\end{tabular} 
+		\end{table} 
+		
+		\item Make a scatterplot of the two residuals and add the regression line.\\
+		
+		\textbf{Answer:}\\
+		
+		A scatterplot was produced using the below code:
+		
+		\vspace{.5cm}
+		
+		\lstinputlisting[language=R, firstline=89, lastline=94]{PS03.R}  
+		
+		\vspace{.5cm}
+		
+		This produced the following scatterplot:
+		
+		\begin{figure}[H]\centering
+			\caption{\footnotesize}
+			\includegraphics[width=.75\textwidth]{Scatterplot mod1_res ~ mod2_res.png}
+		\end{figure} 
+		
+		\item Write the prediction equation.\\
+		
+		
+		\textbf{Answer:}
+		
+		\[\hat{y} = \hat{\beta_0} + \hat{\beta_1}x_1 \]
+		\[mod1\_res = 0 + 0.257\times mod2\_res \]
+		
+	\end{enumerate}
+	
+	\newpage	
+
+\section*{Question 5}
+\noindent What if the incumbent's vote share is affected by both the president's popularity and the difference in spending between incumbent and challenger? 
+	\begin{enumerate}
+		\item Run a regression where the outcome variable is the incumbent's \texttt{voteshare} and the explanatory variables are \texttt{difflog} and \texttt{presvote}.\\
+		
+		\textbf{Answer:}\\
+		
+		A regression was run and summary statistics produced using the below code:
+		
+		\vspace{.5cm}
+		
+		\lstinputlisting[language=R, firstline=100, lastline=104]{PS03.R}  
+		
+		\vspace{.5cm}
+		
+		This produced the following output of summary statistics:
+		
+		\vspace{.4cm}
+		
+		% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+		% Date and time: Thu, Nov 10, 2022 - 21:56:00
+		\begin{table}[H] \centering 
+			\caption{Summary Statistics of Regression Model} 
+			\label{} 
+			\begin{tabular}{@{\extracolsep{5pt}}lc} 
+				\\[-1.8ex]\hline 
+				\hline \\[-1.8ex] 
+				& \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+				\cline{2-2} 
+				\\[-1.8ex] & voteshare \\ 
+				\hline \\[-1.8ex] 
+				difflog & 0.036$^{***}$ \\ 
+				& (0.001) \\ 
+				& \\ 
+				presvote & 0.257$^{***}$ \\ 
+				& (0.012) \\ 
+				& \\ 
+				Constant & 0.449$^{***}$ \\ 
+				& (0.006) \\ 
+				& \\ 
+				\hline \\[-1.8ex] 
+				Observations & 3,193 \\ 
+				R$^{2}$ & 0.450 \\ 
+				Adjusted R$^{2}$ & 0.449 \\ 
+				Residual Std. Error & 0.073 (df = 3190) \\ 
+				F Statistic & 1,302.947$^{***}$ (df = 2; 3190) \\ 
+				\hline 
+				\hline \\[-1.8ex] 
+				\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+			\end{tabular} 
+		\end{table} 
+		
+		\item Write the prediction equation.\\
+		
+		\textbf{Answer:}
+		
+		\[\hat{y} = \hat{\beta_0} + \hat{\beta_1}x_1 + \hat{\beta_2}x_2 \]
+		\[voteshare = 0.449 + 0.036\times difflog + 0.257\times presvote\]
+		
+		\vspace{.5cm}
+		
+		\item What is it in this output that is identical to the output in Question 4? Why do you think this is the case?\\
+		
+		\textbf{Answer:}\\
+		
+		The coefficient for \texttt{presvote} in this question has the same value as the coefficient for \texttt{mod2\_res} in Question 4. The residuals from Question 1 represent the variation in \texttt{voteshare} that is not explained by \texttt{difflog}, and the residuals from Question 2 represent the variation in \texttt{presvote} that is not explained by \texttt{difflog}. Therefore, the coefficient for \texttt{mod2\_res} in Question 4 represents the amount of co-variation between \texttt{presvote} and \texttt{voteshare} that is not explained by \texttt{difflog}.
+		
+	\end{enumerate}
+
+
+
+
+\end{document}
